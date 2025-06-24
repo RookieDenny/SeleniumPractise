@@ -1,5 +1,5 @@
 # Selenium(undetected)
-saucedemo為測試網站，撰寫測試案例並實施測試<br>
+saucedemo為測試網站，撰寫測試案例並測試<br>
 測試網站:https://www.saucedemo.com/<br>
 undetected-chromedriver + pytest + Allure<br>
 測試案例:<br>
