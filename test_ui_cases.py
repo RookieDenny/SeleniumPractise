@@ -1,21 +1,16 @@
 import pytest
-import undetected_chromedriver as uc
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 import time
 
-# 執行程式
-# pytest --alluredir=allure-results
-# allure serve allure-results
-# undetected-chromedriver==3.5.5
-
 
 @pytest.fixture
 def browser():
-    options = uc.ChromeOptions()
+    options = Options()
     # Headless 模式（GitHub Actions 執行環境需要）
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
@@ -32,7 +27,7 @@ def browser():
     }
     options.add_experimental_option("prefs", prefs)
 
-    driver = uc.Chrome(options=options)
+    driver = webdriver.Chrome(options=options)
     driver.get("https://www.saucedemo.com/")
     yield driver
     driver.quit()
