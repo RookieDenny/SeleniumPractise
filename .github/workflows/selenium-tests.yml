@@ -12,21 +12,24 @@ jobs:
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v4 # 拉取GitHub上的程式碼到runner虛擬主機
 
     - name: Set up Python
-      uses: actions/setup-python@v5
+      uses: actions/setup-python@v5 # 在虛擬機器上安裝Python環境
       with:
-        python-version: '3.10'
+        python-version: '3.10' # 指定版本
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
+    - name: Install dependencies # 安裝專案依賴pytest、allure-pytest
+      run: | 
+        python -m pip install --upgrade pip 
         pip install -r requirements.txt
-
+      # 第一段，升級 pip，避免使用到太舊版本。
+      # 第二段，安裝requirements.txt裡面列的所有套件
+      
     - name: Run tests with Allure
       run: |
         pytest --alluredir=allure-results
+      # 執行pytest測試，並把 Allure 報告產生在allure-results資料夾。
 
     - name: Upload Allure Results as Artifact
       uses: actions/upload-artifact@v4
