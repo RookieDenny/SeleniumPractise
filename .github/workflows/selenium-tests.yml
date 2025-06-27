@@ -25,14 +25,15 @@ jobs:
         pip install -r requirements.txt
       # 第一段，升級 pip，避免使用到太舊版本。
       # 第二段，安裝requirements.txt裡面列的所有套件
-      
+
     - name: Run tests with Allure
       run: |
         pytest --alluredir=allure-results
       # 執行pytest測試，並把 Allure 報告產生在allure-results資料夾。
 
-    - name: Upload Allure Results as Artifact
+    - name: Upload Allure Results as Artifact # 把剛剛產生的報告資料夾上傳到 GitHub 作為 Artifact
       uses: actions/upload-artifact@v4
       with:
         name: allure-results
         path: allure-results
+      
