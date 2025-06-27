@@ -16,7 +16,12 @@ import time
 @pytest.fixture
 def browser():
     options = uc.ChromeOptions()
-    options.add_argument("--start-maximized")
+    # Headless 模式（GitHub Actions 執行環境需要）
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1080")
 
     # 關閉密碼管理功能和登入提示
     prefs = {
