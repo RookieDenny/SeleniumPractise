@@ -2,34 +2,34 @@ name: Run Selenium Tests
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main ]  # 當 main 分支有 push 時執行
   pull_request:
-    branches: [ main ]
+    branches: [ main ]  # 當有 PR 發到 main 分支時執行
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # 在 GitHub 提供的 Ubuntu 環境中執行
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v4 # 拉取GitHub上的程式碼到runner虛擬主機
+      uses: actions/checkout@v4 # 拉取 GitHub 上的程式碼到 runner 虛擬主機
 
     - name: Set up Python
-      uses: actions/setup-python@v5 # 在虛擬機器上安裝Python環境
+      uses: actions/setup-python@v5 # 在虛擬機器上安裝 Python 環境
       with:
         python-version: '3.10' # 指定版本
 
-    - name: Install dependencies # 安裝專案依賴pytest、allure-pytest
+    - name: Install dependencies # 安裝專案依賴 pytest、allure-pytest
       run: | 
         python -m pip install --upgrade pip 
         pip install -r requirements.txt
       # 第一段，升級 pip，避免使用到太舊版本。
-      # 第二段，安裝requirements.txt裡面列的所有套件
+      # 第二段，安裝 requirements.txt 裡面列的所有套件
 
     - name: Run tests with Allure
       run: |
         pytest --alluredir=allure-results
-      # 執行pytest測試，並把 Allure 報告產生在allure-results資料夾。
+      # 執行 pytest 測試，並把 Allure 報告產生在 allure-results 資料夾。
 
     - name: Upload Allure Results as Artifact # 把剛剛產生的報告資料夾上傳到 GitHub 作為 Artifact
       uses: actions/upload-artifact@v4
